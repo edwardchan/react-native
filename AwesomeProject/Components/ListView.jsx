@@ -11,9 +11,12 @@ import React, {
 var styles = require('../styles');
 
 class ListView extends Component {
+  _handlePress() {
+    this.props.navigation.pop();
+  }
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.container} onClick={this._handlePress}>
         <Text>
           Feed View!
         </Text>
@@ -22,4 +25,4 @@ class ListView extends Component {
   }
 }
 
-module.exports = ListView;
+export default ListView;

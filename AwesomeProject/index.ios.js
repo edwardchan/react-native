@@ -12,27 +12,39 @@ import React, {
   View
 } from 'react-native';
 
+import Navigation from './Components/Navigation';
+import WelcomeView from './Components/WelcomeView';
+import {ListView} from './Components/ListView';
+import {Tab} from './Components/Tab';
+
 var styles = require('./styles');
-var WelcomeView = require('./Components/WelcomeView.jsx');
-var ListView = require('./Components/ListView.jsx');
+
+let tabList = [
+    { 'id': 1, 'name': 'Welcome', 'url': '/home' },
+    { 'id': 2, 'name': 'List', 'url': '/list' },
+];
 
 class AwesomeProject extends Component {
+  _renderScene(route, navigator) {
+    var Component = route.component;
+
+    return (
+      <Component {...route.props} navigator={navigator} route={route} />
+    );
+  }
   render() {
     return (
-      <Navigator
-        initialRoute={{name: 'WelcomeView', component: WelcomeView}}
-        configureScene={() => {
-            return Navigator.SceneConfigs.FloatFromRight;
-        }}
-        renderScene={(route, navigator) => {
-            // count the number of func calls
-            console.log(route, navigator);
+      <View style={styles.container}>
+        <Navigation tabList={tabList} />
 
-            if (route.component) {
-                return React.createElement(route.component, { navigator });
-            }
-        }}
-      />
+        <Navigator
+          initialRoute={{ component: WelcomeView, type: 'right' }}
+          configureScene={() => {
+              return Navigator.SceneConfigs.FloatFromRight;
+          }}
+          renderScene={this._renderScene}
+        />
+      </View>
     );
   }
 }

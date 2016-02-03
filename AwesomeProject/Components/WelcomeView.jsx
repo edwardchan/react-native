@@ -11,9 +11,15 @@ import React, {
 var styles = require('../styles');
 
 class WelcomeView extends Component {
+  _handlePress() {
+    this.props.navigator.push({
+      component: ListView,
+      props: { parentListen: this._listen.bind(this)}
+    });
+  }
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.container} onPress={this._handlePress}>
         <Text style={styles.welcome}>
           Welcome to React Native!
         </Text>
@@ -29,4 +35,4 @@ class WelcomeView extends Component {
   }
 }
 
-module.exports = WelcomeView;
+export default WelcomeView;
